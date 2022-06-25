@@ -5,6 +5,8 @@ using Random = UnityEngine.Random;
 public class FlockEntity : MonoBehaviour {
     private FlockManager _manager;
     private float _speed;
+    private bool _inGroup;
+
 
     public FlockManager Manager {
         set => _manager = value;
@@ -17,10 +19,20 @@ public class FlockEntity : MonoBehaviour {
     }
 
     private void Update() {
-        AppleRules();
+        _inGroup = _manager.RegionBounds.Contains(transform.position);
+
+        if (!_inGroup) {
+            var dir = _manager.transform.position - transform.position;
+            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(dir),
+                _manager.RotationSpeed * Time.deltaTime);
+        }
+        else {
+            AppleRules();
+        }
+
         transform.Translate(Vector3.forward * (_speed * Time.deltaTime));
     }
-    
+
     /* ===========================
      *  Flocking Rules
      * ==========================
@@ -59,7 +71,8 @@ public class FlockEntity : MonoBehaviour {
 
         if (flockSize > 0) {
             centerVector /= flockSize;
-            _speed = globalSpeed/flockSize;
+            centerVector += _manager.Goal.transform.position - transform.position;
+            _speed = globalSpeed / flockSize;
             var facingDirection = (centerVector + avoidanceVector) - transform.position;
             if (facingDirection != Vector3.zero)
                 transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(facingDirection),

@@ -18,7 +18,13 @@ public class FlockManager : MonoBehaviour {
     [SerializeField] private float _neighbotDist; // how close an game-object can come close each other
     [SerializeField] private float _rotationSpeed;
     
+    
+
+    [SerializeField] private GameObject _goal;
+    
     private GameObject[] _allGameObjects;
+
+    private Bounds _regionBounds;
 
     public float MinSpeed => _minSpeed;
     public float MaxSpeed => _maxSpeed;
@@ -28,7 +34,14 @@ public class FlockManager : MonoBehaviour {
 
     public GameObject[] AllGameObjects => _allGameObjects;
 
+    public GameObject Goal => _goal;
+
+    public Bounds RegionBounds => _regionBounds;
+
     private void Start() {
+        //create bounds to contain the flock
+        _regionBounds = new Bounds(transform.position, _flockingArea * 2);
+        
         _allGameObjects = new GameObject[amount];
         Camera.main.transform.position = new Vector3(_flockingArea.x * -2, _flockingArea.y * 2);
         for (int i = 0; i < amount; i++) {
