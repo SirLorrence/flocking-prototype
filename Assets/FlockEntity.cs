@@ -8,6 +8,8 @@ public class FlockEntity : MonoBehaviour {
     private bool _inGroup;
 
 
+    private RaycastHit _hit;
+
     public FlockManager Manager {
         set => _manager = value;
     }
@@ -19,10 +21,19 @@ public class FlockEntity : MonoBehaviour {
     }
 
     private void Update() {
-        _inGroup = _manager.RegionBounds.Contains(transform.position);
+        var dir = Vector3.zero;
+        if (!_manager.RegionBounds.Contains(transform.position)) {
+            _inGroup = false;
+            dir = _manager.transform.position - transform.position;
+        }
+        else if (Physics.Raycast(transform.position, transform.forward * 50, out _hit)) {
+            _inGroup = false;
+            dir = Vector3.Reflect(transform.forward, _hit.normal);
+        }
+        else _inGroup = true;
 
         if (!_inGroup) {
-            var dir = _manager.transform.position - transform.position;
+           
             transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(dir),
                 _manager.RotationSpeed * Time.deltaTime);
         }
@@ -71,7 +82,7 @@ public class FlockEntity : MonoBehaviour {
 
         if (flockSize > 0) {
             centerVector /= flockSize;
-            centerVector += _manager.Goal.transform.position - transform.position;
+            centerVector += _manager.Goal - transform.position;
             _speed = globalSpeed / flockSize;
             var facingDirection = (centerVector + avoidanceVector) - transform.position;
             if (facingDirection != Vector3.zero)
