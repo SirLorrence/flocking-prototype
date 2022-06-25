@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
 public class FlockManager : MonoBehaviour {
@@ -12,11 +13,20 @@ public class FlockManager : MonoBehaviour {
     
     [SerializeField] private float _minSpeed;
     [SerializeField] private float _maxSpeed;
+
+    [SerializeField] private float _neighborhoodFlockDist; // the area of which is consider its neighbor. a street or town
+    [SerializeField] private float _neighbotDist; // how close an game-object can come close each other
+    [SerializeField] private float _rotationSpeed;
     
     private GameObject[] _allGameObjects;
 
     public float MinSpeed => _minSpeed;
     public float MaxSpeed => _maxSpeed;
+    public float NeighborDist => _neighbotDist;
+    public float NeighborhoodFlockDist => _neighborhoodFlockDist;
+    public float RotationSpeed => _rotationSpeed;
+
+    public GameObject[] AllGameObjects => _allGameObjects;
 
     private void Start() {
         _allGameObjects = new GameObject[amount];
