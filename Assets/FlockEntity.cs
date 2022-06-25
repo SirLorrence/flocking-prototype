@@ -41,6 +41,7 @@ public class FlockEntity : MonoBehaviour {
             AppleRules();
         }
 
+        _speed = Mathf.Clamp(_speed, 0, 5.0f); 
         transform.Translate(Vector3.forward * (_speed * Time.deltaTime));
     }
 

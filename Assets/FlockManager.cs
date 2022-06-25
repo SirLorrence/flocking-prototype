@@ -20,8 +20,9 @@ public class FlockManager : MonoBehaviour {
     [SerializeField] private float _neighbotDist; // how close an game-object can come close each other
     [SerializeField] private float _rotationSpeed;
 
+    [SerializeField] private bool _moveGoalManual = default;
+    [SerializeField] private Vector3 _goal = Vector3.zero;
 
-    [SerializeField] private Vector3 _goal;
 
     private GameObject[] _allGameObjects;
 
@@ -64,19 +65,20 @@ public class FlockManager : MonoBehaviour {
     }
 
     private void Update() {
-         if (Random.Range(1, 100) < 2) {
-            _goal = new Vector3(Random.Range(-_flockingArea.x, _flockingArea.x),
-                Random.Range(-_flockingArea.y, _flockingArea.y), Random.Range(-_flockingArea.z, _flockingArea.z));
-         }
+        if (!_moveGoalManual) {
+            if (Random.Range(1, 100) < 2) {
+                _goal = new Vector3(Random.Range(-_flockingArea.x, _flockingArea.x),
+                    Random.Range(-_flockingArea.y, _flockingArea.y), Random.Range(-_flockingArea.z, _flockingArea.z));
+            }
+        }
     }
 
     private void OnDrawGizmos() {
         Handles.Label(transform.position, "Flocking Area", EditorStyles.textArea);
         Gizmos.DrawWireCube(this.transform.position, _flockingArea * 2);
-        
+
         GUI.color = Color.yellow;
         Handles.Label(_goal + Vector3.down, "Goal", EditorStyles.textArea);
         Gizmos.DrawSphere(_goal, .5f);
-        
     }
 }
