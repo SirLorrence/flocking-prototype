@@ -29,7 +29,7 @@ public class FlockEntity : MonoBehaviour {
             _inGroup = false;
             dir = _manager.transform.position - transform.position; // get back into the zone 
         }
-        else if (ObstacleCheck()) {
+        else if (Physics.Raycast(transform.position, transform.forward * 5, out _hit)) {
             _inGroup = false;
             dir = Vector3.Reflect(transform.forward, _hit.normal);
         }
@@ -97,7 +97,7 @@ public class FlockEntity : MonoBehaviour {
     }
 
 #if UNITY_EDITOR
-    private void OnDrawGizmos() {
+    private void OnDrawGizmosSelected() {
         Gizmos.color = (ObstacleCheck()) ? Color.red : Color.green;
         Gizmos.DrawRay(transform.position,transform.forward * 5);
     }

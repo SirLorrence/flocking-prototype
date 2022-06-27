@@ -1,26 +1,24 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
-using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
 public class FlockManager : MonoBehaviour {
     [SerializeField] private GameObject _gameObject;
-    [SerializeField] private int _amount = 1;
+    [SerializeField] private int _amount = 10;
     private int _maxAmount = 50;
     private int _lastValue = default;
     [SerializeField] private Vector3 _flockingArea = Vector3.one; //the area if which the objects will be limited to
 
-    [SerializeField] private float _minSpeed;
-    [SerializeField] private float _maxSpeed;
-    [SerializeField] private float _maxFlockSpeed;
+    [SerializeField] private float _minSpeed = .1f;
+    [SerializeField] private float _maxSpeed=.5f;
+    [SerializeField] private float _maxFlockSpeed = 2;
 
-    [SerializeField] private float _neighborhoodFlockDist; // the area of which is consider its neighbor. a street or town
+    [SerializeField] private float _neighborhoodFlockDist = 5; // the area of which is consider its neighbor. a street or town
 
-    [SerializeField] private float _neighbotDist; // how close an game-object can come close each other
-    [SerializeField] private float _rotationSpeed;
+    [SerializeField] private float _neighbotDist = 1; // how close an game-object can come close each other
+    [SerializeField] private float _rotationSpeed = 2;
 
     [SerializeField] private bool _moveGoalManual = default;
     [SerializeField] private Vector3 _goal = Vector3.zero;
@@ -50,8 +48,8 @@ public class FlockManager : MonoBehaviour {
         _regionBounds = new Bounds(transform.position, _flockingArea * 2);
 
         
-        if (Camera.main != null)
-            Camera.main.transform.position = new Vector3(_flockingArea.x * -2, _flockingArea.y * 2);
+        // if (Camera.main != null)
+        //     Camera.main.transform.position = new Vector3(_flockingArea.x * -2, _flockingArea.y * 2);
         
         // flock initialization
         
@@ -74,6 +72,7 @@ public class FlockManager : MonoBehaviour {
             }
             _allGameObjects[i].SetActive(false);
         }
+
         StartCoroutine(MoveGoalPosition());
     }
 
@@ -95,21 +94,22 @@ public class FlockManager : MonoBehaviour {
     private IEnumerator MoveGoalPosition() {
         while (true) {
             if (!_moveGoalManual) {
-                _goal = new Vector3(Random.Range(-_flockingArea.x, _flockingArea.x),
+                _goal = transform.position + new Vector3(Random.Range(-_flockingArea.x, _flockingArea.x),
                     Random.Range(-_flockingArea.y, _flockingArea.y), Random.Range(-_flockingArea.z, _flockingArea.z));
             }
             yield return new WaitForSeconds(2.5f);
         }
     }
 
-#if UNITY_EDITOR
+#if UNITY_EDITOR // won't build the game without this
     private void OnDrawGizmos() {
-        Handles.Label(transform.position, "Flocking Area", EditorStyles.textArea);
-        Gizmos.DrawWireCube(this.transform.position, _flockingArea * 2);
-
-        GUI.color = Color.yellow;
-        Handles.Label(_goal + Vector3.down, "Goal", EditorStyles.textArea);
-        Gizmos.DrawSphere(_goal, .5f);
-    }
+            Handles.Label(transform.position, "Flocking Area", EditorStyles.textArea);
+            Gizmos.DrawWireCube(this.transform.position, _flockingArea * 2);
+    
+            GUI.color = Color.yellow;
+            Handles.Label(_goal + Vector3.down, "Goal", EditorStyles.textArea);
+            Gizmos.DrawSphere(_goal, .5f);
+        }
 #endif
+  
 }
