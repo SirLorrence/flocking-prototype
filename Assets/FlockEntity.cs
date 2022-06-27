@@ -6,6 +6,7 @@ public class FlockEntity : MonoBehaviour {
     private FlockManager _manager;
     private float _speed;
     private bool _inGroup;
+    private bool _enableRules;
 
 
     private RaycastHit _hit;
@@ -16,17 +17,19 @@ public class FlockEntity : MonoBehaviour {
 
     public float Speed => _speed;
 
+    private void SetRandomSpeed() => _speed = Random.Range(_manager.MinSpeed, _manager.MaxSpeed);
+    private bool ObstacleCheck() => Physics.Raycast(transform.position, transform.forward * 5, out _hit); 
     private void Start() {
-        _speed = Random.Range(_manager.MinSpeed, _manager.MaxSpeed);
+         SetRandomSpeed();//starting speed
     }
 
     private void Update() {
         var dir = Vector3.zero;
         if (!_manager.RegionBounds.Contains(transform.position)) {
             _inGroup = false;
-            dir = _manager.transform.position - transform.position;
+            dir = _manager.transform.position - transform.position; // get back into the zone 
         }
-        else if (Physics.Raycast(transform.position, transform.forward * 50, out _hit)) {
+        else if (ObstacleCheck()) {
             _inGroup = false;
             dir = Vector3.Reflect(transform.forward, _hit.normal);
         }
@@ -41,16 +44,16 @@ public class FlockEntity : MonoBehaviour {
             AppleRules();
         }
 
-        _speed = Mathf.Clamp(_speed, 0, 5.0f); 
+        _speed = Mathf.Clamp(_speed, 0, _manager.MaxFlockSpeed); 
         transform.Translate(Vector3.forward * (_speed * Time.deltaTime));
     }
 
     /* ===========================
      *  Flocking Rules
      * ==========================
-     * 1. Move towards the average position of the flock
-     * 2. Align with forward heading of the flock
-     * 3. Avoid crowding together
+     * 1. Move towards the average position of the flock - Cohesion
+     * 2. Align with forward heading of the flock - Alignment
+     * 3. Avoid crowding together - Separation
      */
 
     void AppleRules() {
@@ -66,7 +69,7 @@ public class FlockEntity : MonoBehaviour {
 
 
         foreach (var neighbor in neighbors) {
-            if (neighbor != this.gameObject) {
+            if (neighbor != this.gameObject && neighbor.activeSelf) {
                 closetNeighbor = Vector3.Distance(neighbor.transform.position, transform.position);
                 if (closetNeighbor <= _manager.NeighborhoodFlockDist) {
                     centerVector += neighbor.transform.position;
@@ -82,13 +85,21 @@ public class FlockEntity : MonoBehaviour {
         }
 
         if (flockSize > 0) {
-            centerVector /= flockSize;
-            centerVector += _manager.Goal - transform.position;
+            centerVector /= flockSize; // cohesion - getting the avg center
+            centerVector += _manager.Goal - transform.position; // the direction to head towards the goal
             _speed = globalSpeed / flockSize;
-            var facingDirection = (centerVector + avoidanceVector) - transform.position;
-            if (facingDirection != Vector3.zero)
-                transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(facingDirection),
+            var desiredFacingDirection = (centerVector + avoidanceVector) - transform.position;
+            if (desiredFacingDirection != Vector3.zero)
+                transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(desiredFacingDirection),
                     _manager.RotationSpeed * Time.deltaTime);
         }
+        else SetRandomSpeed(); // not in a group anymore, return to 'roaming' speed
     }
+
+#if UNITY_EDITOR
+    private void OnDrawGizmos() {
+        Gizmos.color = (ObstacleCheck()) ? Color.red : Color.green;
+        Gizmos.DrawRay(transform.position,transform.forward * 5);
+    }
+#endif
 }
