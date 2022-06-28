@@ -19,7 +19,7 @@ MonoBehaviour:
     width: 2560
     height: 1274
   m_ShowMode: 4
-  m_Title: Inspector
+  m_Title: Project
   m_RootView: {fileID: 2}
   m_MinSize: {x: 875, y: 300}
   m_MaxSize: {x: 10000, y: 10000}
@@ -99,7 +99,7 @@ MonoBehaviour:
   m_MinSize: {x: 300, y: 200}
   m_MaxSize: {x: 24288, y: 16192}
   vertical: 0
-  controlID: 87
+  controlID: 83
 --- !u!114 &5
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -347,7 +347,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 18800000
     m_LastClickedID: 32792
-    m_ExpandedIDs: 000000007e580000805800008258000084580000
+    m_ExpandedIDs: 00000000a0580000a2580000a4580000a6580000a8580000aa580000ac580000ae580000b0580000b2580000b4580000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -375,7 +375,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 2ab7fdffffffffff000000007e58000080580000c8580000d6b10000deb10000e0b10000e2b10000e6b1000012b200006cb7000070b70000
+    m_ExpandedIDs: ffffffff00000000a0580000a6580000a8580000aa580000ac580000ae580000b0580000b2580000b4580000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -391,7 +391,7 @@ MonoBehaviour:
       m_IsRenaming: 0
       m_OriginalEventType: 11
       m_IsRenamingFilename: 1
-      m_ClientGUIView: {fileID: 10}
+      m_ClientGUIView: {fileID: 0}
     m_SearchString: 
     m_CreateAssetUtility:
       m_EndAction: {fileID: 0}
@@ -838,7 +838,7 @@ MonoBehaviour:
   m_Rotation:
     m_Target: {x: 0.07996734, y: 0.8631233, z: -0.1871654, w: 0.4621085}
     speed: 2
-    m_Value: {x: 0.07996927, y: 0.86314416, z: -0.18716991, w: 0.46211964}
+    m_Value: {x: 0.07996735, y: 0.8631233, z: -0.1871654, w: 0.4621085}
   m_Size:
     m_Target: 0.8660254
     speed: 2
@@ -900,21 +900,21 @@ MonoBehaviour:
       scrollPos: {x: 0, y: 0}
       m_SelectedIDs: 
       m_LastClickedID: 0
-      m_ExpandedIDs: 628afdffb08afdff028efdff48b5fdff58b5fdff46bdfdffacbffdffb2bffdff7ad0fdffbad0fdff0cd4fdfffee6fdff3ee7fdff90eafdff7a6afeff826afeff8a6afeff8e6afeff926afeff986afeffac6afeffb46afeffbc6afeffc06afeffc46afeffca6afeffde6afeffe66afeffee6afefff26afefff66afefffc6afeff106bfeff186bfeff206bfeff246bfeff286bfeff2e6bfeff426bfeff4a6bfeff526bfeff566bfeff5a6bfeff606bfeff746bfeff7c6bfeff846bfeff886bfeff8c6bfeff926bfeffa66bfeffae6bfeffb66bfeffba6bfeffbe6bfeffc46bfeffd86bfeffe06bfeffe86bfeffec6bfefff06bfefff66bfeff0a6cfeff126cfeff1a6cfeff1e6cfeff226cfeff286cfeff3c6cfeff446cfeff4c6cfeff506cfeff546cfeff5a6cfeff6e6cfeff766cfeff7e6cfeff826cfeff866cfeff8c6cfeff5278feff0ab9feff26b9feff9ab9feffbeb9feffd2b9feffd8bbfeff44fdfeffccfefeffc403ffff5a1affffb81bffff721effff3823ffff6ee3ffffbce3ffff06e7ffff30fbfffff4fffffff684000058f00000
+      m_ExpandedIDs: 32fbffff
       m_RenameOverlay:
         m_UserAcceptedRename: 0
-        m_Name: Flock Manager
-        m_OriginalName: Flock Manager
+        m_Name: 
+        m_OriginalName: 
         m_EditFieldRect:
           serializedVersion: 2
           x: 0
           y: 0
           width: 0
           height: 0
-        m_UserData: 62190
+        m_UserData: 0
         m_IsWaitingForDelay: 0
         m_IsRenaming: 0
-        m_OriginalEventType: 0
+        m_OriginalEventType: 11
         m_IsRenamingFilename: 0
         m_ClientGUIView: {fileID: 9}
       m_SearchString: 
