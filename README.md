@@ -1,6 +1,10 @@
 # Flocking Prototype
 
-With this project I took my time to learn how to do an simple flocking simulation. My knowledge of this is still elementary, but I'm planning on implementing this as an game mechanic in one of my up coming projects. For now...look at the little fishies.
+With this project I took my time to learn how to do an simple [flocking simulation](https://www.red3d.com/cwr/boids/). My knowledge of this is still elementary, but I'm planning on implementing this as an game mechanic in one of my up coming projects. For now...look at the little fishies.
+<p align="center">
+ [Source Code](https://github.com/SirLorrence/flocking-prototype/tree/main/Assets/Scripts)
+</p>
+
 
 <p align="center">
   <img src="flockimg-readme.gif">
