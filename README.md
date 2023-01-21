@@ -7,15 +7,21 @@ With this project I took my time to learn how to do an simple [flocking simulati
 </p>
 
 <p align="center">
-  <img src="https://github.com/SirLorrence/flocking-prototype/blob/main/flockimg-readme.gif?raw=true">
+  <img src="flockimg-readme.gif">
 </p>
 
 ## The Rules
 
 ### 1. Move towards the average position of the flock - Cohesion
 This is done by each entity (Craig Reynolds calls them boids) calculating the other entities position and creating an average center position
-Getting the other's entities positions - ``  centerVector += neighbor.transform.position;``\
-After dividing the sum of the positions by the size of the flock - ``centerVector /= flockSize;`` 
+Getting the other's entities positions - 
+```c#
+centerVector += neighbor.transform.position;
+```
+After dividing the sum of the positions by the size of the flock - 
+```c#
+centerVector /= flockSize;
+``` 
 
 <p align="center">
   <img src="https://www.red3d.com/cwr/boids/images/cohesion.gif">
@@ -23,7 +29,9 @@ After dividing the sum of the positions by the size of the flock - ``centerVecto
 
 ### 2. Align with forward heading of the flock - Alignment
 This is done by adding all the Forward Vectors (facing directions) and dividing them by the size of the flock. Since the entities are just going forward I used the same ``centerVector`` variable to calculate the foward direction:\
-`` var desiredFacingDirection = (centerVector + avoidanceVector) - transform.position;``
+```c#
+var desiredFacingDirection = (centerVector + avoidanceVector) - transform.position;
+```
 <p align="center">
   <img src="https://www.red3d.com/cwr/boids/images/alignment.gif">
 </p>
@@ -32,7 +40,9 @@ This is done by adding all the Forward Vectors (facing directions) and dividing 
 When another entity is too close to one another, you'll need to calculate a new forward direction by using the flock forward heading (vector) + 
 the direction of the where to avoid the other entity + the flocks position.\
 Getting the avoidance direction vector: \
-``if (closetNeighbor < _manager.NeighborDist) avoidanceVector += transform.position - neighbor.transform.position;``
+```c#
+if (closetNeighbor < _manager.NeighborDist) avoidanceVector += transform.position - neighbor.transform.position;
+```
 
 
 <p align="center">
