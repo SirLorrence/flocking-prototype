@@ -7,7 +7,7 @@ With this project I took my time to learn how to do an simple [flocking simulati
 </p>
 
 <p align="center">
-  <img src="flockimg-readme.gif">
+  <img src="https://github.com/SirLorrence/flocking-prototype/blob/main/flockimg-readme.gif?raw=true">
 </p>
 
 ## The Rules
